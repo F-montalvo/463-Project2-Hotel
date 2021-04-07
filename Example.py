@@ -1,5 +1,7 @@
 import tkinter as tk
 
+#download the file in command prompt go to where the file is located use python example.py
+
 #This sets up the TK inter
 root = tk.Tk()
 #This sets the size of th window
