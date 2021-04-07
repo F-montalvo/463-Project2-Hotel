@@ -1,4 +1,5 @@
 import tkinter as tk
+import random
 
 #download the file in command prompt go to where the file is located use python example.py
 
@@ -7,15 +8,50 @@ root = tk.Tk()
 #This sets the size of th window
 root.geometry('1250x700')
 #This sets up the Title of the Window
-root.title("Main Window")
-root.resizable(True,True)
+root.title("Hotel Transylvania")
+root.resizable(False,False)
+
+isClicked = False
 
 def ShowRooms():
-    
+    counter = 0
+    size = ["King","Double Queen","Double Queen with Kitchen", "Suite"]
+    roomlist = [0 for i in range(20)]
+    rooms = list()
+    i = 0
+    while i < 20:
+        randsize = size[random.randint(0,3)]
+        roomlist[i] = tk.Button(root, text= "Room #" + str(i+1) + " " + randsize)
+        rooms.append([roomlist[i],isClicked])
+        roomlist
+        roomlist[i].config(command = lambda: checkRoom(rooms), font=("arial", 12))
+        roomlist[i].place(x = 500, y = counter + 30)
+        counter = counter + 30
+        i = i + 1
+
+def checkRoom(rooms):
+    for i in rooms:
+        if rooms[1] == True
+    availability  = ["Available","Unavailable/Occupied", "Unavailable/Dirty", "Unavailable/Maintenance"]
+    color = ["green","red","yellow", "purple"]
+    rand = random.randint(0,3)
+    if rand == 0:
+        pick = color[0]
+    elif rand== 1:
+        pick = color[1]
+    elif  rand== 2:
+        pick = color[2]
+    elif rand== 3:
+        pick = color[3]
+    roomlist[id].configure(fg= pick)
 
 
 
-Capability1 = tk.Button(root, text='Show Rooms and Status', command=execute,font=("arial", 12))
+def execute():
+    print("welcome")
+
+
+Capability1 = tk.Button(root, text='Show Rooms and Status', command=ShowRooms,font=("arial", 12))
 Capability2 = tk.Button(root, text='Show Room Availability', command=execute,font=("arial", 12))
 Capability3 = tk.Button(root, text='Customer Reservation', command=execute,font=("arial", 12))
 Capability4 = tk.Button(root, text='Housekeeping', command=execute,font=("arial", 12))
