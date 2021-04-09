@@ -14,7 +14,7 @@ root.resizable(False,False)
 roomlist = []
 
 class Room:
-    def __init__(self,root,counter):
+    def __init__(self,root,counter,lock):
         size = ["King","Double Queen","Double Queen with Kitchen", "Suite"]
         availability  = {"Available":"green","Unavailable/Occupied":"red", "Unavailable/Dirty":"blue", "Unavailable/Maintenance":"purple"}
         key = ["Available","Unavailable/Occupied", "Unavailable/Dirty","Unavailable/Maintenance"]
@@ -22,12 +22,31 @@ class Room:
         self.roomsize = size[random.randint(0,3)]
         self.color = availability.get(self.avail)
         self.root = root
-        roomlist.append(tk.Button(self.root, text = "Room #" + str(counter+1) + ' ' + self.roomsize, command = lambda: checkRoom(self,roomlist,counter), font =("arial",12)))
+        if lock == 1:
+            roomlist.append(tk.Button(self.root, text = "Room #" + str(counter+1) + ' ' + self.roomsize, command = lambda: checkRoom(self,roomlist,counter), font =("arial",12)))
+        if lock == 2:
+            roomlist.append(tk.Label(self.root, text = "Room #" + str(counter+1) + ' ' + self.roomsize, font =("arial",12)))
+
 
     def configure(self,counter):
         roomlist[counter].configure(fg = self.color)
 
+def clear(window):
+    roomlist.clear()
+    _list = window.winfo_children()
+    for item in _list:
+        if item.winfo_children():
+            _list.extend(item.winfo_children())
+        num = _list[0:8]
+        for item in _list:
+            if item == num[0] or item == num[1] or item == num[2] or item == num[3] or item == num[4] or item == num[5]or item == num[6] or item == num[7]:
+                continue
+            item.place_forget()
+
+
+
 def ShowRooms():
+    clear(root)
     legend = tk.Label(root, text = "Available", font = ("arial", 18))
     legend.configure(fg = "green")
     legend2 = tk.Label(root, text = "Unavailable/Occupied", font = ("arial", 18))
@@ -45,7 +64,7 @@ def ShowRooms():
     counter = 50
     i = 0
     while i < 20:
-        Room(root,i)
+        Room(root,i,1)
         roomlist[i].place(x = 500, y = counter + 30)
         counter = counter + 30
         i = i + 1
@@ -53,6 +72,15 @@ def ShowRooms():
 def checkRoom(self,rooms,counter):
     self.configure(counter)
 
+def roomSchedule():
+    clear(root)
+    i = 0
+    counter = 50
+    while i < 20:
+        Room(root,i,2)
+        roomlist[i].place(x = 300, y = counter + 30)
+        counter = counter + 30
+        i = i + 1
 
 
 def execute():
@@ -60,7 +88,7 @@ def execute():
 
 
 Capability1 = tk.Button(root, text='Show Rooms and Status', command=ShowRooms,font=("arial", 12))
-Capability2 = tk.Button(root, text='Show Room Availability', command=execute,font=("arial", 12))
+Capability2 = tk.Button(root, text='Show Room Schedule', command=roomSchedule,font=("arial", 12))
 Capability3 = tk.Button(root, text='Customer Reservation', command=execute,font=("arial", 12))
 Capability4 = tk.Button(root, text='Housekeeping', command=execute,font=("arial", 12))
 Capability5 = tk.Button(root, text='Guest Profile', command=execute,font=("arial", 12))
