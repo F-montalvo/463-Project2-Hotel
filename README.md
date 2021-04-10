@@ -1,8 +1,9 @@
 # 463-Project2-Hotel
 
-Group Member:
-Dhruvkumar D Patel
-Cheng No Chang
+Group Members:
+
+Dhruvkumar D Patel,
+Cheng No Chang.
 Francisco Montalvo
 
 
