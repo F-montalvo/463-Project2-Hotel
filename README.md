@@ -3,7 +3,7 @@
 Group Members:
 
 Dhruvkumar D Patel,
-Cheng No Chang.
+Cheng No Chang,
 Francisco Montalvo
 
 
