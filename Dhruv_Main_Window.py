@@ -67,6 +67,48 @@ def checkRoom(self,rooms,counter):
 
 def execute():
     print("welcome")
+    
+def housekeeping():
+    clear(frame2)
+    hRoomNum = Label(frame2, text="Room Number", font=("arial", 12), height=2).grid(row=1, column=0)
+    hHousekeeper = Label(frame2, text="Housekeeper", font=("arial", 12), height=2).grid(row=1, column=1)
+    hRoomStatus = Label(frame2, text="Room Status", font=("arial", 12), height=2).grid(row=1, column=2)
+    hRoomType = Label(frame2, text="Room Type", font=("arial", 12), height=2).grid(row=1, column=3)
+    hBathroom = Label(frame2, text="Bathroom", font=("arial", 12), height=2).grid(row=1, column=4)
+    hTowels = Label(frame2, text="Towels", font=("arial", 12), height=2).grid(row=1, column=5)
+    hBedSheets = Label(frame2, text="Bed Sheets", font=("arial", 12), height=2).grid(row=1, column=6)
+    hVacuum = Label(frame2, text="Vacuum", font=("arial", 12), height=2).grid(row=1, column=7)
+    hDusting = Label(frame2, text="Dusting", font=("arial", 12), height=2).grid(row=1, column=8)
+    hElectronics = Label(frame2, text="Electronics", font=("arial", 12), height=2).grid(row=1, column=9)
+    for x in range(10):
+        for y in range(10):
+            entry = Entry(frame2, width=6)
+            entry.grid(row=x + 2, column=y)
+    frame2.grid(row=1, column=0)
+
+def Customer_Reservation():
+    clear(frame2)
+    roomList = ["Option 1", "Option 2", "Option 3"]
+    crGFirst = StringVar()
+    crGLast = StringVar()
+    crCheckIn = StringVar()
+    crCheckOut = StringVar()
+    lGuestFirstName = Label(frame2, text="Enter First Name", font=("arial", 12), height=2).grid(row=1, column=0)
+    lGuestLastName = Label(frame2, text="Enter Last Name", font=("arial", 12), height=2).grid(row=2, column=0)
+    lCheckInDate = Label(frame2, text='Enter Check In Date', font=("arial", 12)).grid(row=3, column=0)
+    lCheckOutDate = Label(frame2, text='Enter Check Out Date', font=("arial", 12)).grid(row=4, column=0)
+    lRoomType = Label(frame2, text='Pick a Room Type', font=("arial", 12)).grid(row=5, column=0)
+    #lRoomType.set("Pick a room type")
+
+    eGuestFirstName = Entry(frame2, textvariable=crGFirst, font=("arial", 12)).grid(row=1, column=1)
+    eGuestLastName = Entry(frame2, textvariable=crGLast, show='*', font=("arial", 12)).grid(row=2, column=1)
+    eCheckInDate = Entry(frame2, textvariable=crCheckIn, font=("arial", 12)).grid(row=3, column=1)
+    eCheckOutDate = Entry(frame2, textvariable=crCheckOut, font=("arial", 12)).grid(row=4, column=1)
+    cbRoomType = ttk.Combobox(frame2, values=roomList).grid(row=5, column=1)
+    bCheckAvailability = Button(frame2, text='Check Availability', command=execute, height=1, width=14, font=("arial", 12)).grid(row=6, column=0)
+    frame2.grid(row=1, column=0)
+
+
 
 
 def Search():
@@ -104,9 +146,9 @@ Capability1 = Button(frame1, text='Show Rooms and Status', command=ShowRooms,fon
 Capability1.grid(row = 0, column=0)
 Capability2 = Button(frame1, text='Show Room Availability', command=execute,font=("arial", 12), width=20,height=5)
 Capability2.grid(row = 0, column=1)
-Capability3 = Button(frame1, text='Customer Reservation', command=execute,font=("arial", 12), width=20,height=5)
+Capability3 = Button(frame1, text='Customer Reservation', command=Customer_Reservation(),font=("arial", 12), width=20,height=5)
 Capability3.grid(row = 0, column=2)
-Capability4 = Button(frame1, text='Housekeeping', command=execute,font=("arial", 12), width=20,height=5)
+Capability4 = Button(frame1, text='Housekeeping', command=housekeeping(),font=("arial", 12), width=20,height=5)
 Capability4.grid(row = 0, column=3)
 Capability5 = Button(frame1, text='Guest Profile', command=execute,font=("arial", 12), width=20,height=5)
 Capability5.grid(row = 0, column=4)
