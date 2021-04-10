@@ -15,57 +15,75 @@ frame1 = Frame(root)
 frame2 = Frame(root)
 
 roomlist = []
-
+schedulelist = []
 
 class Room:
-    def __init__(self, root, counter):
-        size = ["King", "Double Queen", "Double Queen with Kitchen", "Suite"]
-        availability = {"Available": "green", "Unavailable/Occupied": "red", "Unavailable/Dirty": "blue",
-                        "Unavailable/Maintenance": "purple"}
-        key = ["Available", "Unavailable/Occupied", "Unavailable/Dirty", "Unavailable/Maintenance"]
-        self.avail = key[random.randint(0, 3)]
-        self.roomsize = size[random.randint(0, 3)]
+    def __init__(self,root,counter,lock):
+        size = ["King","Double Queen","Double Queen with Kitchen", "Suite"]
+        availability  = {"Available":"green","Unavailable/Occupied":"red", "Unavailable/Dirty":"blue", "Unavailable/Maintenance":"purple"}
+        key = ["Available","Unavailable/Occupied", "Unavailable/Dirty","Unavailable/Maintenance"]
+        self.avail = key[random.randint(0,3)]
+        self.roomsize = size[random.randint(0,3)]
         self.color = availability.get(self.avail)
+        self.schedule = ["None","Occupied"]
+        self.week = [self.schedule[random.randint(0,1)],self.schedule[random.randint(0,1)],self.schedule[random.randint(0,1)],self.schedule[random.randint(0,1)],self.schedule[random.randint(0,1)],self.schedule[random.randint(0,1)],self.schedule[random.randint(0,1)]]
+        self.guestName = "John Doe"
         self.root = root
-        roomlist.append(Button(self.root, text="Room #" + str(counter + 1) + ' ' + self.roomsize,
-                               command=lambda: checkRoom(self, roomlist, counter), font=("arial", 12)))
+        if lock == 1:
+            roomlist.append(Button(self.root, text = "Room #" + str(counter+1) + ' ' + self.roomsize, command = lambda: checkRoom(self,roomlist,counter), font =("arial",12)))
+        if lock == 2:
+            roomlist.append(Label(self.root, text = "Room #" + str(counter+1) + ' ' + self.roomsize, font =("arial",12)))
 
-    def configure(self, counter):
-        roomlist[counter].configure(fg=self.color)
-
+    def configure(self,counter):
+        roomlist[counter].configure(fg = self.color)
 
 def clear(frame):
+    roomlist.clear()
     for widget in frame.winfo_children():
         widget.destroy()
 
 
+
 def ShowRooms():
     clear(frame2)
-    legend = Label(frame2, text="Available", font=("arial", 18))
-    legend.configure(fg="green")
-    legend2 = Label(frame2, text="Unavailable/Occupied", font=("arial", 18))
-    legend2.configure(fg="red")
-    legend3 = Label(frame2, text="Unavailable/Dirty", font=("arial", 18))
-    legend3.configure(fg="blue")
-    legend4 = Label(frame2, text="Unavailable/Maintenance", font=("arial", 18))
-    legend4.configure(fg="purple")
+    legend = Label(frame2, text = "Available", font = ("arial", 18))
+    legend.configure(fg = "green")
+    legend2 = Label(frame2, text = "Unavailable/Occupied", font = ("arial", 18))
+    legend2.configure(fg = "red")
+    legend3 = Label(frame2, text = "Unavailable/Dirty", font = ("arial", 18))
+    legend3.configure(fg = "blue")
+    legend4 = Label(frame2, text = "Unavailable/Maintenance", font = ("arial", 18))
+    legend4.configure(fg = "purple")
 
-    legend.place(x=300, y=25)
-    legend2.place(x=420, y=25)
-    legend3.place(x=680, y=25)
-    legend4.place(x=880, y=25)
+    legend.grid(row = 10, column = 0)
+    legend2.grid(row = 10, column = 1)
+    legend3.grid(row = 10, column = 2)
+    legend4.grid(row = 10, column = 3)
 
-    counter = 50
+    rowcounter = 20
+    counter = 0
     i = 0
     while i < 20:
-        Room(root, i)
-        roomlist[i].place(x=500, y=counter + 30)
-        counter = counter + 30
+        Room(frame2,i,1)
+        if counter > 2:
+            counter = 0
+            rowcounter = rowcounter + 1
+        roomlist[i].grid(row = rowcounter, column = counter)
+        counter = counter + 1
         i = i + 1
+    frame2.grid(row=1,column=0)
 
-
-def checkRoom(self, rooms, counter):
+def checkRoom(self,rooms,counter):
     self.configure(counter)
+
+def roomSchedule():
+    clear(frame2)
+    i = 0
+    while i < 20:
+        Room(frame2,i,2)
+        roomlist[i].grid(sticky= 'NW',row = i+20, column = 0)
+        i = i + 1
+    frame2.grid(row=1,column=0)
 
 
 def execute():
@@ -263,7 +281,7 @@ def GuestInfo():
 
 Capability1 = Button(frame1, text='Show Rooms and Status', command=ShowRooms, font=("arial", 12), width=20, height=5)
 Capability1.grid(row=0, column=0)
-Capability2 = Button(frame1, text='Show Room Availability', command=execute, font=("arial", 12), width=20, height=5)
+Capability2 = Button(frame1, text='Show Room Availability', command=roomSchedule, font=("arial", 12), width=20, height=5)
 Capability2.grid(row=0, column=1)
 Capability3 = Button(frame1, text='Customer Reservation', command=Customer_Reservation, font=("arial", 12), width=20, height=5)
 Capability3.grid(row=0, column=2)
