@@ -72,7 +72,7 @@ def execute():
     print("welcome")
 
 
-
+#Capability 7
 def Search():
     clear(frame2)
     label1 = Label(frame2, text = "Guest First Name", font = ("arial", 12),height= 2).grid(row=0,column=0)
@@ -92,7 +92,7 @@ def Search():
     Button1 = Button(frame2, text='Search',font=("arial", 14)).grid(row=1,column=6)
     frame2.grid(row=1,column=0)
     
-
+#Capability 8
 def report():
     clear(frame2)
     
@@ -149,6 +149,117 @@ def Customer_Reservation():
     bCheckAvailability = Button(frame2, text='Check Availability', command=execute, height=1, width=14, font=("arial", 12)).grid(row=6, column=0)
     frame2.grid(row=1, column=0)
 
+#Capability 5
+def GuestProfile():
+    clear(frame2)
+    #Guest
+    Guestlabel = Label(frame2, text="Guest1", font=("arial", 12), height=2).grid(row=1, column=1)
+    Guestlabel2 = Label(frame2, text="Guest2", font=("arial", 12), height=2).grid(row=1, column=2)
+    Guestlabel3 = Label(frame2, text="Guest3", font=("arial", 12), height=2).grid(row=1, column=3)
+    #Customer Information
+    label1 = Label(frame2, text="First Name:", font=("arial", 12), height=2 ).grid(row=2, column=0)
+    
+    label2 = Label(frame2, text="Last Name:", font=("arial", 12), height=2 ).grid(row=3, column=0)
+  
+    label3 = Label(frame2, text="Phone:", font=("arial", 12), height=2 ).grid(row=4, column=0)
+   
+    label4 = Label(frame2, text="Address", font=("arial", 12), height=2 ).grid(row=5, column=0)
+
+    label5 = Label(frame2, text="E-mail", font=("arial", 12), height=2 ).grid(row=6, column=0)
+ 
+    label6 = Label(frame2, text="ID info(State,ID#)", font=("arial", 12), height=2 ).grid(row=7, column=0)
+    
+    label7 = Label(frame2, text="Vehicle License Plate", font=("arial", 12), height=2 ).grid(row=8, column=0)
+    
+    #Guest1
+    name1 = Entry(frame2,  font = ("arial", 12)).grid(row=2,column=1)
+    lname1 = Entry(frame2,  font = ("arial", 12)).grid(row=3,column=1)
+    phone1 = Entry(frame2,  font = ("arial", 12)).grid(row=4,column=1)
+    address1 = Entry(frame2,  font = ("arial", 12)).grid(row=5,column=1)
+    Email1 = Entry(frame2,  font = ("arial", 12)).grid(row=6,column=1)
+    IDinfo1 = Entry(frame2,  font = ("arial", 12)).grid(row=7,column=1)
+    Vehiclelicense1 = Entry(frame2,  font = ("arial", 12)).grid(row=8,column=1)
+
+    #Guest2
+    name2 = Entry(frame2,  font = ("arial", 12)).grid(row=2,column=2)
+    lname2 = Entry(frame2,  font = ("arial", 12)).grid(row=3,column=2)
+    phone2 = Entry(frame2,  font = ("arial", 12)).grid(row=4,column=2)
+    address2 = Entry(frame2,  font = ("arial", 12)).grid(row=5,column=2)
+    Email2 = Entry(frame2,  font = ("arial", 12)).grid(row=6,column=2)
+    IDinfo2 = Entry(frame2,  font = ("arial", 12)).grid(row=7,column=2)
+    Vehiclelicense2 = Entry(frame2,  font = ("arial", 12)).grid(row=8,column=2)
+
+    #Guest3
+    name3 = Entry(frame2,  font = ("arial", 12)).grid(row=2,column=3)
+    lname3 = Entry(frame2,  font = ("arial", 12)).grid(row=3,column=3)
+    phone3 = Entry(frame2,  font = ("arial", 12)).grid(row=4,column=3)
+    address3 = Entry(frame2,  font = ("arial", 12)).grid(row=5,column=3)
+    Email3 = Entry(frame2,  font = ("arial", 12)).grid(row=6,column=3)
+    IDinfo3 = Entry(frame2,  font = ("arial", 12)).grid(row=7,column=3)
+    Vehiclelicense3 = Entry(frame2,  font = ("arial", 12)).grid(row=8,column=3)
+    
+    frame2.grid(row=1,column=0)
+
+
+#Capability 6
+def GuestInfo():
+    clear(frame2)
+    Guestlabel = Label(frame2, text="Guest1", font=("arial", 12), height=2).grid(row=1, column=1)
+    Guestlabel2 = Label(frame2, text="Guest2", font=("arial", 12), height=2).grid(row=1, column=2)
+    Guestlabel3 = Label(frame2, text="Guest3", font=("arial", 12), height=2).grid(row=1, column=3)
+    #Customer Information
+    label1 = Label(frame2, text="Guest Name:", font=("arial", 12), height=2 ).grid(row=2, column=0)
+    
+    label2 = Label(frame2, text="Check In Date and Time", font=("arial", 12), height=2 ).grid(row=3, column=0)
+  
+    label3 = Label(frame2, text="Expected Check Out Date and Time", font=("arial", 12), height=2 ).grid(row=4, column=0)
+   
+    label4 = Label(frame2, text="Room Type", font=("arial", 12), height=2 ).grid(row=5, column=0)
+
+    label5 = Label(frame2, text="Room Number", font=("arial", 12), height=2 ).grid(row=6, column=0)
+ 
+    label6 = Label(frame2, text="Room Rate ($/Day", font=("arial", 12), height=2 ).grid(row=7, column=0)
+    
+    label7 = Label(frame2, text="Total Charge", font=("arial", 12), height=2 ).grid(row=8, column=0)
+
+    label8 = Label(frame2, text="Payments Made", font=("arial", 12), height=2 ).grid(row=9, column=0)
+
+    label9 = Label(frame2, text="Balance", font=("arial", 12), height=2 ).grid(row=10, column=0)
+    
+    #Guest1
+    guest1 = Entry(frame2,  font = ("arial", 12)).grid(row=2,column=1)
+    checkin1 = Entry(frame2,  font = ("arial", 12)).grid(row=3,column=1)
+    checkout1 = Entry(frame2,  font = ("arial", 12)).grid(row=4,column=1)
+    roomtype1 = Entry(frame2,  font = ("arial", 12)).grid(row=5,column=1)
+    roomnum1 = Entry(frame2,  font = ("arial", 12)).grid(row=6,column=1)
+    roomrate1 = Entry(frame2,  font = ("arial", 12)).grid(row=7,column=1)
+    totalcharge1 = Entry(frame2,  font = ("arial", 12)).grid(row=8,column=1)
+    paymentsmade1 = Entry(frame2,  font = ("arial", 12)).grid(row=9,column=1)
+    balance1 = Entry(frame2,  font = ("arial", 12)).grid(row=10,column=1)
+
+    #Guest2
+    guest2 = Entry(frame2,  font = ("arial", 12)).grid(row=2,column=2)
+    checkin2 = Entry(frame2,  font = ("arial", 12)).grid(row=3,column=2)
+    checkout2 = Entry(frame2,  font = ("arial", 12)).grid(row=4,column=2)
+    roomtype2 = Entry(frame2,  font = ("arial", 12)).grid(row=5,column=2)
+    roomnum2 = Entry(frame2,  font = ("arial", 12)).grid(row=6,column=2)
+    roomrate2 = Entry(frame2,  font = ("arial", 12)).grid(row=7,column=2)
+    totalcharge2 = Entry(frame2,  font = ("arial", 12)).grid(row=8,column=2)
+    paymentsmade2 = Entry(frame2,  font = ("arial", 12)).grid(row=9,column=2)
+    balance2 = Entry(frame2,  font = ("arial", 12)).grid(row=10,column=2)
+
+    #Guest3
+    guest3 = Entry(frame2,  font = ("arial", 12)).grid(row=2,column=3)
+    checkin3 = Entry(frame2,  font = ("arial", 12)).grid(row=3,column=3)
+    checkout3 = Entry(frame2,  font = ("arial", 12)).grid(row=4,column=3)
+    roomtype3 = Entry(frame2,  font = ("arial", 12)).grid(row=5,column=3)
+    roomnum3 = Entry(frame2,  font = ("arial", 12)).grid(row=6,column=3)
+    roomrate3 = Entry(frame2,  font = ("arial", 12)).grid(row=7,column=3)
+    totalcharge3 = Entry(frame2,  font = ("arial", 12)).grid(row=8,column=3)
+    paymentsmade3 = Entry(frame2,  font = ("arial", 12)).grid(row=9,column=3)
+    balance3 = Entry(frame2,  font = ("arial", 12)).grid(row=10,column=3)
+    frame2.grid(row=1,column=0)
+
 
 Capability1 = Button(frame1, text='Show Rooms and Status', command=ShowRooms, font=("arial", 12), width=20, height=5)
 Capability1.grid(row=0, column=0)
@@ -158,10 +269,10 @@ Capability3 = Button(frame1, text='Customer Reservation', command=Customer_Reser
 Capability3.grid(row=0, column=2)
 Capability4 = Button(frame1, text='Housekeeping', command=housekeeping, font=("arial", 12), width=20, height=5)
 Capability4.grid(row=0, column=3)
-Capability5 = Button(frame1, text='Guest Profile', command=execute, font=("arial", 12), width=20, height=5)
-Capability5.grid(row=0, column=4)
-Capability6 = Button(frame1, text='Current Stay', command=execute, font=("arial", 12), width=20, height=5)
-Capability6.grid(row=0, column=5)
+Capability5 = Button(frame1, text='Guest Profile', command=GuestProfile,font=("arial", 12), width=20,height=5)
+Capability5.grid(row = 0, column=4)
+Capability6 = Button(frame1, text='Current Stay', command=GuestInfo,font=("arial", 12), width=20,height=5)
+Capability6.grid(row = 0, column=5)
 Capability7 = Button(frame1, text='Search', command=Search, font=("arial", 12), width=20, height=5)
 Capability7.grid(row=0, column=6)
 Capability8 = Button(frame1, text='Daily Report', command=report, font=("arial", 12), width=20, height=5)
