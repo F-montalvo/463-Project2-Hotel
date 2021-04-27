@@ -33,17 +33,20 @@ class Room:
             roomlist.append(Button(self.root, text = "Room #" + str(counter+1) + ' ' + self.roomsize, command = lambda: checkRoom(self,roomlist,counter), font =("arial",12)))
         if lock == 2:
             roomlist.append(Label(self.root, text = "Room #" + str(counter+1) + ' ' + self.roomsize, font =("arial",12)))
+            for item in self.week:
+                schedulelist.append(Label(self.root, text = item, font = ("arial,12")))
 
     def configure(self,counter):
         roomlist[counter].configure(fg = self.color)
 
 def clear(frame):
     roomlist.clear()
+    schedulelist.clear()
     for widget in frame.winfo_children():
         widget.destroy()
 
 
-
+#Capability1
 def ShowRooms():
     clear(frame2)
     legend = Label(frame2, text = "Available", font = ("arial", 18))
@@ -71,19 +74,35 @@ def ShowRooms():
         roomlist[i].grid(row = rowcounter, column = counter)
         counter = counter + 1
         i = i + 1
-    frame2.grid(row=1,column=0)
+    frame2.grid(row=1,column=0,sticky = 'w')
 
 def checkRoom(self,rooms,counter):
     self.configure(counter)
 
+#Capability2
 def roomSchedule():
     clear(frame2)
+    #scrollbar = Scrollbar(frame2)
+    #scrollbar.grid(row = 1, column = 0, sticky = "NWS")
+    rowcounter = 20
+    counter = 1
     i = 0
     while i < 20:
         Room(frame2,i,2)
-        roomlist[i].grid(row = i+20, column = 0)
+        roomlist[i].grid(row = i+rowcounter, column = 0)
         i = i + 1
-    frame2.grid(row=1,column=0)
+    j = 0
+    while j < len(schedulelist):
+        print("j % 7 =", j%7)
+        if j% 7 == 0 and j != 0:
+            rowcounter = rowcounter + 1
+            counter = 1
+        schedulelist[j].grid(row = rowcounter, column = counter)
+        j = j+1
+        counter= counter +1
+
+
+    frame2.grid(row=1,column=0, sticky = 'w')
 
 
 def Search():
