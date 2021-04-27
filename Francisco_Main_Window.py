@@ -63,18 +63,18 @@ def ShowRooms():
     legend3.grid(row = 10, column = 2)
     legend4.grid(row = 10, column = 3)
 
-    rowcounter = 20
+    rowcounter = 2
     counter = 0
     i = 0
     while i < 20:
         Room(frame2,i,1)
-        if counter > 2:
+        if counter > 3:
             counter = 0
             rowcounter = rowcounter + 1
         roomlist[i].grid(row = rowcounter, column = counter)
         counter = counter + 1
         i = i + 1
-    frame2.grid(row=1,column=0,sticky = 'w')
+    frame2.grid(row=1,column=0,sticky = 'nwse')
 
 def checkRoom(self,rooms,counter):
     self.configure(counter)
@@ -84,7 +84,26 @@ def roomSchedule():
     clear(frame2)
     #scrollbar = Scrollbar(frame2)
     #scrollbar.grid(row = 1, column = 0, sticky = "NWS")
-    rowcounter = 20
+
+
+    monday = Label(frame2, text = "Monday", font = ("arial", 14))
+    tuesday = Label(frame2, text = "Tuesday", font = ("arial", 14))
+    wednesday = Label(frame2, text = "Wednesday", font = ("arial", 14))
+    thursday = Label(frame2, text = "Thursday", font = ("arial", 14))
+    friday = Label(frame2, text = "Friday", font = ("arial", 14))
+    saturday = Label(frame2, text = "Saturday", font = ("arial", 14))
+    sunday = Label(frame2, text = "Sunday", font = ("arial", 14))
+
+    monday.grid(row = 1, column = 2)
+    tuesday.grid(row = 1, column = 3)
+    wednesday.grid(row = 1, column = 4)
+    thursday.grid(row = 1, column = 5)
+    friday.grid(row = 1, column = 6)
+    saturday.grid(row = 1, column = 7)
+    sunday.grid(row = 1, column = 8)
+
+
+    rowcounter = 2
     counter = 1
     i = 0
     while i < 20:
@@ -93,16 +112,13 @@ def roomSchedule():
         i = i + 1
     j = 0
     while j < len(schedulelist):
-        print("j % 7 =", j%7)
         if j% 7 == 0 and j != 0:
             rowcounter = rowcounter + 1
             counter = 1
-        schedulelist[j].grid(row = rowcounter, column = counter)
+        schedulelist[j].grid(row = rowcounter, column = counter+1)
         j = j+1
         counter= counter +1
-
-
-    frame2.grid(row=1,column=0, sticky = 'w')
+    frame2.grid(row=1,column=0, sticky = 'wsne')
 
 
 def Search():
@@ -131,7 +147,7 @@ def report():
         for j in range(1,5):
             b = Entry(frame2, text="------")
             b.grid(row=i, column=j)
-    frame2.grid(row=1,column=0)
+    frame2.grid(row=1,column=0, sticky ='nw')
 
 def execute():
     print("welcome")
