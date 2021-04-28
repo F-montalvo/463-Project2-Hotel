@@ -1,5 +1,6 @@
 from tkinter import *
 import random
+from filldb import create_connection,get_type,get_status
 
 #download the file in command prompt go to where the file is located use python example.py
 
@@ -18,26 +19,27 @@ roomlist = []
 schedulelist = []
 
 class Room:
-    def __init__(self,root,counter,lock):
-        size = ["King","Double Queen","Double Queen with Kitchen", "Suite"]
+    def __init__(self,root,i,lock):
+        #size = ["King","Double Queen","Double Queen with Kitchen", "Suite"]
         availability  = {"Available":"green","Unavailable/Occupied":"red", "Unavailable/Dirty":"blue", "Unavailable/Maintenance":"purple"}
-        key = ["Available","Unavailable/Occupied", "Unavailable/Dirty","Unavailable/Maintenance"]
-        self.avail = key[random.randint(0,3)]
-        self.roomsize = size[random.randint(0,3)]
+        #key = ["Available","Unavailable/Occupied", "Unavailable/Dirty","Unavailable/Maintenance"]
+        conn = create_connection()
+        self.avail = get_status(conn,i+1)
+        self.roomsize = get_type(conn,i+1)
+        conn.close()
         self.color = availability.get(self.avail)
         self.schedule = ["None","Occupied"]
         self.week = [self.schedule[random.randint(0,1)],self.schedule[random.randint(0,1)],self.schedule[random.randint(0,1)],self.schedule[random.randint(0,1)],self.schedule[random.randint(0,1)],self.schedule[random.randint(0,1)],self.schedule[random.randint(0,1)]]
-        self.guestName = "John Doe"
         self.root = root
         if lock == 1:
-            roomlist.append(Button(self.root, text = "Room #" + str(counter+1) + ' ' + self.roomsize, command = lambda: checkRoom(self,roomlist,counter), font =("arial",12)))
+            roomlist.append(Button(self.root, text = "Room #" + str(i+1) + ' ' + self.roomsize, command = lambda: checkRoom(self,roomlist,i), font =("arial",12)))
         if lock == 2:
-            roomlist.append(Label(self.root, text = "Room #" + str(counter+1) + ' ' + self.roomsize, font =("arial",12)))
+            roomlist.append(Label(self.root, text = "Room #" + str(i+1) + ' ' + self.roomsize, font =("arial",12)))
             for item in self.week:
                 schedulelist.append(Label(self.root, text = item, font = ("arial,12")))
 
-    def configure(self,counter):
-        roomlist[counter].configure(fg = self.color)
+    def configure(self,i):
+        roomlist[i].configure(fg = self.color)
 
 def clear(frame):
     roomlist.clear()
@@ -58,10 +60,10 @@ def ShowRooms():
     legend4 = Label(frame2, text = "Unavailable/Maintenance", font = ("arial", 18))
     legend4.configure(fg = "purple")
 
-    legend.grid(row = 10, column = 0)
-    legend2.grid(row = 10, column = 1)
-    legend3.grid(row = 10, column = 2)
-    legend4.grid(row = 10, column = 3)
+    legend.grid(row = 1, column = 0)
+    legend2.grid(row = 1, column = 1)
+    legend3.grid(row = 1, column = 2)
+    legend4.grid(row = 1, column = 3)
 
     rowcounter = 2
     counter = 0
@@ -84,7 +86,6 @@ def roomSchedule():
     clear(frame2)
     #scrollbar = Scrollbar(frame2)
     #scrollbar.grid(row = 1, column = 0, sticky = "NWS")
-
 
     monday = Label(frame2, text = "Monday", font = ("arial", 14))
     tuesday = Label(frame2, text = "Tuesday", font = ("arial", 14))
