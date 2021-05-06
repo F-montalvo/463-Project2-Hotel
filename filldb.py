@@ -2,6 +2,7 @@ import sqlite3
 from sqlite3 import Error
 import random
 
+
 def create_connection():
     conn = None
     try:
@@ -11,26 +12,30 @@ def create_connection():
 
     return conn
 
-def create_room(conn,data):
+
+def create_room(conn, data):
     statement = "insert into Rooms(Number,Type,Status,Rate)VALUES(?,?,?,?)"
     cur = conn.cursor()
-    cur.execute(statement,data)
+    cur.execute(statement, data)
     conn.commit()
     return cur.lastrowid
 
-def get_type(conn,i):
+
+def get_type(conn, i):
     cur = conn.cursor()
     statement = "select Type from Rooms where Number = {0}".format(i)
     cur.execute(statement)
     data = cur.fetchall()
     return data[0][0]
 
-def get_status(conn,i):
+
+def get_status(conn, i):
     cur = conn.cursor()
     statement = "select Status from Rooms where Number = {}".format(i)
     cur.execute(statement)
     data = cur.fetchall()
     return data[0][0]
+
 
 def get_report_data():
     conn = create_connection()
@@ -42,13 +47,33 @@ def get_report_data():
     return data
 
 
+def get_housekeeping():
+    conn = create_connection()
+    cur = conn.cursor()
+    statement = "SELECT * from Housekeeping"
+    cur.execute(statement)
+    data = cur.fetchall()
+    return data
 
+def get_availiable_rooms():
+    conn = create_connection()
+    cur = conn.cursor()
+    statement = "SELECT * from Rooms as R where R.Status = 'Available'"
+    cur.execute(statement)
+    data = cur.fetchall()
+    return data
+
+def get_reservations():
+    conn = create_connection()
+    cur = conn.cursor()
+    statement = "SELECT * from Reservations"
+    cur.execute(statement)
+    data = cur.fetchall()
+    return data
 def main():
+    size = ["King", "Double Queen", "Double Queen with Kitchen", "Suite"]
+    key = ["Available", "Unavailable/Occupied", "Unavailable/Dirty", "Unavailable/Maintenance"]
 
-
-    size = ["King","Double Queen","Double Queen with Kitchen", "Suite"]
-    key = ["Available","Unavailable/Occupied", "Unavailable/Dirty","Unavailable/Maintenance"]
-    
     conn = create_connection()
     '''
     with conn:
@@ -57,6 +82,7 @@ def main():
             create_room(conn,data)
     '''
     print(len(get_report(conn)))
+
 
 if __name__ == '__main__':
     main()
