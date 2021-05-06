@@ -70,11 +70,11 @@ def ShowRooms():
     i = 0
     while i < 20:
         Room(frame2,i,1)
-        if counter > 3:
-            counter = 0
-            rowcounter = rowcounter + 1
+        if rowcounter == 7:
+            rowcounter = 2
+            counter = counter + 1
         roomlist[i].grid(row = rowcounter, column = counter)
-        counter = counter + 1
+        rowcounter = rowcounter + 1
         i = i + 1
     frame2.grid(row=1,column=0,sticky = 'nwse')
 
