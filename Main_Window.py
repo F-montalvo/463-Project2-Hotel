@@ -354,7 +354,31 @@ def search():
     #Search Entry button
     search_button = Button(search, text="Search Guest", command=search_now)
     search_button.grid(row=3, column=0)
+    
+def GuestProfile():
+    clear(frame2)
+    #If this screen is reached from Capability 1 or Capability 2 with no guest checked-in, the fields  be blank and can be filled in by the User.  The guests can then be checked-in when the information is filled out. If a guest checks  in, the room status (See Capability 1) turns to Unavailable/Occupied.
+    # Insert into guest table
 
+    #If this screen is reached from Capability 1 or Capability 2 with a guest checked-in, the fields  contain the appropriate information and an option to check the guest out  be available.  If the guest checks out, the room status (See Capability 1) turns to Unavailable/Dirty.
+    #Delete guest from guest table
+
+    #If this screen is reached from Capability 2 or Capability 3 with a reservation for a guest, the information from the reservation should be transferred over to this screen.  Once the remaining information is filled out, the guests can then be checked-in.  If a guest checks  in, the room status (See Capability 1) turns to Unavailable/Occupied.
+    #Display current information for guest stay
+
+
+
+    # Guest
+    Guestlabel = Label(frame2, text="Guest Search", font=("arial", 20), height=3).grid(row=1, column=1)
+
+
+    #Search records button
+    search_btn = Button(text="Search", command= search)
+    search_btn.grid(row=9, column=0)
+    
+    
+
+    frame2.grid(row=1, column=0)
 # Capability 6
 def GuestInfo():
     clear(frame2)
