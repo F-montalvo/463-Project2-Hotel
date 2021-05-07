@@ -266,56 +266,94 @@ def Check_Reservations():
         frame2.grid(row=1, column=0, sticky='nwse')
 
 # Capability 5
-def GuestProfile():
-    clear(frame2)
-    # Guest
-    Guestlabel = Label(frame2, text="Guest1", font=("arial", 12), height=2).grid(row=1, column=1)
-    Guestlabel2 = Label(frame2, text="Guest2", font=("arial", 12), height=2).grid(row=1, column=2)
-    Guestlabel3 = Label(frame2, text="Guest3", font=("arial", 12), height=2).grid(row=1, column=3)
-    # Customer Information
-    label1 = Label(frame2, text="First Name:", font=("arial", 12), height=2).grid(row=2, column=0)
+def search():
+    conn = sqlite3.connect("hotel.db")
+    c = conn.cursor()
+    search = Tk()
+    search.title("Search")
+    search.geometry("900x800")
 
-    label2 = Label(frame2, text="Last Name:", font=("arial", 12), height=2).grid(row=3, column=0)
+    def update():
+        return
+    def edit_now(id, index):
+        sql2 = "SELECT * FROM Guest WHERE Guest_Id = ?"
+        name2 = id 
+        result2 = c.execute(sql2, name2)
+        result2 = c.fetchall()
+        print(result2)
 
-    label3 = Label(frame2, text="Phone:", font=("arial", 12), height=2).grid(row=4, column=0)
 
-    label4 = Label(frame2, text="Address", font=("arial", 12), height=2).grid(row=5, column=0)
+        index += 1
+        fname_label = Label(search, text="First Name:", font=("arial", 12), height=2 ).grid(row=index+1, column=0)
+        lname_label = Label(search, text="Last Name:", font=("arial", 12), height=2 ).grid(row=index+2, column=0)
+        phone_label = Label(search, text="Phone:", font=("arial", 12), height=2 ).grid(row=index+3, column=0)
+        sid_label = Label(search, text="Address", font=("arial", 12), height=2 ).grid(row=index+4, column=0)
+        license_label = Label(search, text="E-mail", font=("arial", 12), height=2 ).grid(row=index+5, column=0)
+        email_label = Label(search, text="ID info(State,ID#)", font=("arial", 12), height=2 ).grid(row=index+6, column=0)
+        address_label = Label(search, text="Vehicle License Plate", font=("arial", 12), height=2 ).grid(row=index+7, column=0)
+        id_label = Label(search, text="id", font=("arial", 12), height=2 ).grid(row=index+8, column=0)
 
-    label5 = Label(frame2, text="E-mail", font=("arial", 12), height=2).grid(row=6, column=0)
+    
+        name = Entry(search,  font = ("arial", 12)).grid(row=index+1,column=1)
+        name.insert(0, result2[0][1])
+        lname = Entry(search,  font = ("arial", 12)).grid(row=index+2,column=1)
+        lname.insert(0, result2[0][2])
+        phone = Entry(search,  font = ("arial", 12)).grid(row=index+3,column=1)
+        phone.insert(0, result2[0][3])
+        sid = Entry(search,  font = ("arial", 12)).grid(row=index+4,column=1)
+        sid.insert(0, result2[0][3])
+        license = Entry(search,  font = ("arial", 12)).grid(row=index+5,column=1)
+        license.insert(0 ,result2[0][4])
+        email = Entry(search,  font = ("arial", 12)).grid(row=index+6,column=1)
+        email.insert(0, result2[0][5])
+        address = Entry(search,  font = ("arial", 12)).grid(row=index+7,column=1)
+        address.insert(0, result2[0][6])
+        id = Entry(search,  font = ("arial", 12)).grid(row=index+8,column=1)
+        id.insert(0, result2[0][0])
 
-    label6 = Label(frame2, text="ID info(State,ID#)", font=("arial", 12), height=2).grid(row=7, column=0)
+        update_customer = Button(search, text="Update", command=update)
+        update_customer.grid(row=index+10, column=2)
 
-    label7 = Label(frame2, text="Vehicle License Plate", font=("arial", 12), height=2).grid(row=8, column=0)
+        search.grid(row=1,column=0)
 
-    # Guest1
-    name1 = Entry(frame2, font=("arial", 12)).grid(row=2, column=1)
-    lname1 = Entry(frame2, font=("arial", 12)).grid(row=3, column=1)
-    phone1 = Entry(frame2, font=("arial", 12)).grid(row=4, column=1)
-    address1 = Entry(frame2, font=("arial", 12)).grid(row=5, column=1)
-    Email1 = Entry(frame2, font=("arial", 12)).grid(row=6, column=1)
-    IDinfo1 = Entry(frame2, font=("arial", 12)).grid(row=7, column=1)
-    Vehiclelicense1 = Entry(frame2, font=("arial", 12)).grid(row=8, column=1)
+    def search_now():
+        conn = sqlite3.connect("hotel.db")
+        c = conn.cursor()
+        searched = search_box.get()
+        lname = last_name.get()
+        sql = "SELECT * FROM Guest WHERE First_Name = ? AND Last_Name = ?"
+        first_name = (searched, lname )
+        result = c.execute(sql, first_name)
+        result = c.fetchall()
 
-    # Guest2
-    name2 = Entry(frame2, font=("arial", 12)).grid(row=2, column=2)
-    lname2 = Entry(frame2, font=("arial", 12)).grid(row=3, column=2)
-    phone2 = Entry(frame2, font=("arial", 12)).grid(row=4, column=2)
-    address2 = Entry(frame2, font=("arial", 12)).grid(row=5, column=2)
-    Email2 = Entry(frame2, font=("arial", 12)).grid(row=6, column=2)
-    IDinfo2 = Entry(frame2, font=("arial", 12)).grid(row=7, column=2)
-    Vehiclelicense2 = Entry(frame2, font=("arial", 12)).grid(row=8, column=2)
+        if not result:
+            result = "Not found"
+        else:
+            for index, x in enumerate(result):
+                num = 0
+                index += 2
+                id_reference = str(x[0])
+                edit_button= Button(search, text="Edit", command=lambda: edit_now(id_reference, index))
+                edit_button.grid(row=index, column=num)
+                for y in x:
+                    searched_label = Label(search, text=y)
+                    searched_label.grid(row=index, column = num+1)
+                    num += 1
 
-    # Guest3
-    name3 = Entry(frame2, font=("arial", 12)).grid(row=2, column=3)
-    lname3 = Entry(frame2, font=("arial", 12)).grid(row=3, column=3)
-    phone3 = Entry(frame2, font=("arial", 12)).grid(row=4, column=3)
-    address3 = Entry(frame2, font=("arial", 12)).grid(row=5, column=3)
-    Email3 = Entry(frame2, font=("arial", 12)).grid(row=6, column=3)
-    IDinfo3 = Entry(frame2, font=("arial", 12)).grid(row=7, column=3)
-    Vehiclelicense3 = Entry(frame2, font=("arial", 12)).grid(row=8, column=3)
 
-    frame2.grid(row=1, column=0)
-
+    #Search Entry 
+    search_box = Entry(search)
+    search_box.grid(row=0, column=1)
+    last_name = Entry(search)
+    last_name.grid(row=1, column=1)
+    #Search Entry label
+    search_box_label = Label(search, text="First name")
+    search_box_label.grid(row=0, column = 0)
+    search_box_label = Label(search, text="Last name")
+    search_box_label.grid(row=1, column = 0)
+    #Search Entry button
+    search_button = Button(search, text="Search Guest", command=search_now)
+    search_button.grid(row=3, column=0)
 
 # Capability 6
 def GuestInfo():
