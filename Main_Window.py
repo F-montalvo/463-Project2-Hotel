@@ -216,6 +216,7 @@ def report():
     frame4.grid(row=1,column=0)
     frame2.grid(row=1,column=0)
 
+#capability 4
 def housekeeping():
     clear(frame2)
     hRoomNum = Label(frame2, text="Room Number", font=("arial", 12), height=2).grid(row=1, column=0)
@@ -228,15 +229,25 @@ def housekeeping():
     hVacuum = Label(frame2, text="Vacuum", font=("arial", 12), height=2).grid(row=1, column=7)
     hDusting = Label(frame2, text="Dusting", font=("arial", 12), height=2).grid(row=1, column=8)
     hElectronics = Label(frame2, text="Electronics", font=("arial", 12), height=2).grid(row=1, column=9)
-    for x in range(10):
-        for y in range(10):
-            entry = Entry(frame2, width=6)
-            entry.grid(row=x + 2, column=y)
-    frame2.grid(row=1, column=0)
 
+    dirtyrooms = get_housekeeping()
+
+    for rooms in dirtyrooms:
+        i = 0
+        j = 0
+        for x in dirtyrooms:
+            j = 0
+            for y in dirtyrooms[i]:
+                droom = Label(frame2, text=str(dirtyrooms[i][j]), font=("arial", 12))
+                droom.grid(row=i + 2, column=j)
+                j += 1
+            i += 1
+        frame2.grid(row=1, column=0, sticky='nwse')
+
+#capability 3
 def Customer_Reservation():
     clear(frame2)
-    roomList = ["Option 1", "Option 2", "Option 3"]
+    roomList = ["Suite", "King", "Double Queen", "Double Queen with Kitchen"]
     crGFirst = StringVar()
     crGLast = StringVar()
     crCheckIn = StringVar()
@@ -246,16 +257,59 @@ def Customer_Reservation():
     lCheckInDate = Label(frame2, text='Enter Check In Date', font=("arial", 12)).grid(row=3, column=0)
     lCheckOutDate = Label(frame2, text='Enter Check Out Date', font=("arial", 12)).grid(row=4, column=0)
     lRoomType = Label(frame2, text='Pick a Room Type', font=("arial", 12)).grid(row=5, column=0)
-    #lRoomType.set("Pick a room type")
+    # lRoomType.set("Pick a room type")
 
     eGuestFirstName = Entry(frame2, textvariable=crGFirst, font=("arial", 12)).grid(row=1, column=1)
     eGuestLastName = Entry(frame2, textvariable=crGLast, show='*', font=("arial", 12)).grid(row=2, column=1)
     eCheckInDate = Entry(frame2, textvariable=crCheckIn, font=("arial", 12)).grid(row=3, column=1)
     eCheckOutDate = Entry(frame2, textvariable=crCheckOut, font=("arial", 12)).grid(row=4, column=1)
-    cbRoomType = ttk.Combobox(frame2, values=roomList).grid(row=5, column=1)
-    bCheckAvailability = Button(frame2, text='Check Availability', command=execute, height=1, width=14, font=("arial", 12)).grid(row=6, column=0)
+    cbRoomType = ttk.Combobox(frame2, values=roomList)
+    cbRoomType.current(0)
+    cbRoomType.grid(row=5, column=1)
+    bCheckAvailability = Button(frame2, text='Check Availability', command=lambda: Check_Availiable(cbRoomType.get()), height=1, width=14,
+                                font=("arial", 12)).grid(row=6, column=0)
+    bCheckAllReservations = Button(frame2, text='Check Reservations', command=Check_Reservations, height=1, width=15,
+                                font=("arial", 12)).grid(row=7, column=0)
     frame2.grid(row=1, column=0)
+def Check_Availiable(roomType):
+    avail_rooms = get_availiable_rooms()
+    avail = False
+    for x in avail_rooms:
+        if x[1] == roomType:
+            avail = True
+            tempRoom = x[0]
 
+    if avail:
+        window = Toplevel()
+        label = Label(window, text="Room " + str(tempRoom) + " Avaliable")
+        label.pack(side="top", fill="x", padx=20, pady=20)
+        button_close = Button(window, text="Close", command=window.destroy)
+        button_close.pack()
+        window.mainloop()
+
+def Check_Reservations():
+    clear(frame2)
+    reservations = get_reservations()
+    lGuestFirstName = Label(frame2, text="Guest First Name", font=("arial", 12), height=2).grid(row=1, column=0)
+    lGuestLastName = Label(frame2, text="Guest Last Name", font=("arial", 12), height=2).grid(row=1, column=1)
+    lCheckInDate = Label(frame2, text='Check In Date', font=("arial", 12)).grid(row=1, column=2)
+    lCheckOutDate = Label(frame2, text='Check Out Date', font=("arial", 12)).grid(row=1, column=3)
+    lRoomType = Label(frame2, text='Room Type', font=("arial", 12)).grid(row=1, column=4)
+
+    i = 0
+    j = 0
+    for x in reservations:
+
+        j = 0
+        for y in reservations[i]:
+
+            reserved = Label(frame2, text=str(reservations[i][j]), font=("arial", 12))
+            reserved.grid(row=i + 2, column=j)
+            j += 1
+        i += 1
+    frame2.grid(row=1, column=0, sticky='nwse')
+	
+	
 #Capability 5
 def update(Guest_Id):
     results = update_guest(Guest_Id)

@@ -66,7 +66,7 @@ def get_availiable_rooms():
 def get_reservations():
     conn = create_connection()
     cur = conn.cursor()
-    statement = "SELECT * from Reservations"
+    statement = "SELECT G.First_name, G.Last_name, B.CheckIn, B.CheckOut, R.Type from Booking as B join Guest as G on B.Guest_Id = G.Guest_Id join Rooms as R on R.number = B.room_number"
     cur.execute(statement)
     data = cur.fetchall()
     return data
