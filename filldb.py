@@ -125,7 +125,50 @@ def get_rooms():
     data = cur.fetchall()
     conn.close()
     return data
+#CAP 7 & 8
+def get_report_data():
+    conn = create_connection()
+    cur = conn.cursor()
+    statement = "SELECT B.Room_number, G.First_name|| ' '||G.Last_name, B.CheckIn, B.CheckOut, sum(P.Payment_amount) from Booking as B JOIN Guest as G on B.Guest_Id = G.Guest_Id JOIN Payment as P on P.Booking_id= B.Booking_id WHERE P.Payment_date = date('now') GROUP by P.Booking_id;"
+    cur.execute(statement)
+    data = cur.fetchall()
+    conn.close()
+    return data
 
+def search_data(FirstName,LastName,Room,Phone,Address,CheckIn,CheckOut):
+    '''
+    Select G.First_name, G.Last_name, B.Room_number, B.CheckIn, B.CheckOut from Booking as B
+JOIN Guest AS G ON B.Guest_Id = G.Guest_Id
+where G.First_name = 'Dhruv' and G.Last_name = 'Patel' and B.Room_number=6 and G.Phone = 1231231234 and G.Address Like '%CA%' and B.CheckIn='2021-05-02' and B.CheckOut='2021-05-03';
+    '''
+    statement = "Select G.First_name, G.Last_name, B.Room_number, B.CheckIn, B.CheckOut,B.Guest_Id from Booking as B JOIN Guest AS G ON B.Guest_Id = G.Guest_Id "
+    if FirstName or LastName or Room or Phone or Address or CheckIn or CheckOut:
+        statement+= "where"
+    else:
+        return None
+    if FirstName:
+        statement+= " lower(G.First_name) = lower('" +str(FirstName) + str("') and")
+    if LastName:
+        statement+=" G.Last_name = '" +str(LastName) + str("' and")
+    if Room:
+        statement+=" B.Room_number = '"+ str(Room) + str("' and")
+    if Phone:
+        statement+=" G.Phone = '" +str(Phone)+ str("' and")
+    if Address:
+        statement+=" lower(G.Address) Like lower("+str("'%")+str(Address)+str("%')") + str(" and")
+    if CheckIn:
+        statement+=" B.CheckIn = '"+str(CheckIn) +str("' and")
+    if CheckOut:
+        statement+=" B.CheckOut = '"+str(CheckOut) + str("' and")
+    if statement.endswith('and'):
+        run_statement = statement[:len(statement)-3]
+    run_statement+=' ;'
+    conn = create_connection()
+    cur = conn.cursor()
+    cur.execute(run_statement)
+    data = cur.fetchall()
+    conn.close()
+    return data
 def main():
     size = ["King", "Double Queen", "Double Queen with Kitchen", "Suite"]
     key = ["Available", "Unavailable/Occupied", "Unavailable/Dirty", "Unavailable/Maintenance"]
@@ -137,7 +180,7 @@ def main():
             data = (i,size[random.randint(0,3)],key[random.randint(0,3)],0.0)
             create_room(conn,data)
     '''
-    print(len(get_report(conn)))
+    
 
 
 if __name__ == '__main__':
