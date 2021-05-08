@@ -70,6 +70,62 @@ def get_reservations():
     cur.execute(statement)
     data = cur.fetchall()
     return data
+
+# Capability 5-6
+def get_guest(Guest_Id):
+    conn = create_connection()
+    cur = conn.cursor()
+    statement = "SELECT * FROM Guest WHERE Guest_Id = " + str(Guest_Id)
+    cur.execute(statement)
+    data = cur.fetchall()
+    conn.close()
+    return data
+
+def update_guest(Guest_Id):
+    conn = create_connection()
+    cur = conn.cursor()
+    statement = "UPDATE Guest SET First_Name = :first, Last_Name = :last, Phone = :phone, State_Id = :state_id, License_plate = :license_plate, Email = :email  Address = :address,   WHERE Guest_Id =" + str(Guest_Id)
+    conn.commit()
+    data = cur.fetchall()
+    conn.close()
+    return data
+
+def get_booking():
+    conn = create_connection()
+    cur = conn.cursor()
+    statement = "SELECT * FROM Booking WHERE Guest_Id = 1"
+    cur.execute(statement)
+    data = cur.fetchall()
+    conn.close()
+    return data
+
+def get_guest_1():
+    conn = create_connection()
+    cur = conn.cursor()
+    statement = "SELECT * FROM Guest WHERE Guest_Id = 1" 
+    cur.execute(statement)
+    data = cur.fetchall()
+    conn.close()
+    return data
+
+def get_payment():
+    conn = create_connection()
+    cur = conn.cursor()
+    statement = "SELECT * FROM Booking WHERE Booking_id= 2" 
+    cur.execute(statement)
+    data = cur.fetchall()
+    conn.close()
+    return data
+
+def get_rooms():
+    conn = create_connection()
+    cur = conn.cursor()
+    statement = "SELECT * FROM Rooms WHERE Number= 6" 
+    cur.execute(statement)
+    data = cur.fetchall()
+    conn.close()
+    return data
+
 def main():
     size = ["King", "Double Queen", "Double Queen with Kitchen", "Suite"]
     key = ["Available", "Unavailable/Occupied", "Unavailable/Dirty", "Unavailable/Maintenance"]
