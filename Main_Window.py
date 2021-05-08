@@ -3,7 +3,7 @@ import random
 from tkinter import ttk
 from tkcalendar import Calendar, DateEntry
 from datetime import date
-from filldb import create_connection,get_type,get_status,get_report_data,search_data, get_guest, update_guest, get_booking, get_guest_1,get_payment,get_rooms
+from filldb import create_connection,get_type,get_status,get_report_data,search_data, get_guest, update_guest, get_booking, get_guest_1,get_payment,get_rooms, get_housekeeping, get_availiable_rooms, get_reservations
 # download the file in command prompt go to where the file is located use python example.py
 
 root = Tk()
