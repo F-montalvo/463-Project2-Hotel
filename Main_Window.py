@@ -3,6 +3,7 @@ import random
 from tkinter import ttk
 from tkcalendar import Calendar, DateEntry
 from datetime import date
+from functools import partial
 from filldb import create_connection,get_type,get_status,get_report_data,search_data, get_guest, update_guest, get_booking, get_guest_1,get_payment,get_rooms, get_housekeeping, get_availiable_rooms, get_reservations
 # download the file in command prompt go to where the file is located use python example.py
 
@@ -158,9 +159,6 @@ def Search():
     
     def check():
         search_result = search_data(FirstName.get(),LastName.get(),Room.get(),Phone.get(),Address.get(),CheckIn.get_date(),CheckOut.get_date())
-        print(search_result)
-        
-        print(len(Room.get()))
         if search_result:
             clear(frame5)
             Label(frame5, text="Guest Name", font=("arial", 20), height=2,width= 18).grid(row=0, column=0)
@@ -168,7 +166,8 @@ def Search():
             Label(frame5, text="Check In Date", font=("arial", 20), height=2, width= 18).grid(row=0, column=2)
             Label(frame5, text="Check out Date", font=("arial", 20), height=2, width= 18).grid(row=0, column=3)
             for i in range(len(search_result)):
-                Button(frame5, text=search_result[i][0]+' '+search_result[i][1], command= lambda: GuestProfile(search_result[i][5]),font = ("arial", 15),height= 2, width= 24, borderwidth=1, relief="groove").grid(row=i+1, column=0)
+                B = Button(frame5, text=search_result[i][0]+' '+search_result[i][1], command=partial(GuestProfile,search_result[i][5]),font = ("arial", 15),height= 2, width= 24, borderwidth=1, relief="groove")
+                B.grid(row=i+1, column=0)
                 Label(frame5, text=search_result[i][2],font = ("arial", 15),height= 2, width= 24, borderwidth=1, relief="groove").grid(row=i+1, column=1)
                 Label(frame5, text=search_result[i][3],font = ("arial", 15),height= 2, width= 24, borderwidth=1, relief="groove").grid(row=i+1, column=2)
                 Label(frame5, text=search_result[i][4],font = ("arial", 15),height= 2, width= 24, borderwidth=1, relief="groove").grid(row=i+1, column=3)
@@ -178,6 +177,8 @@ def Search():
         else:
             clear(frame5)
             Label(frame5, text="Please Enter Input(s)", font=("arial", 25), height=2).grid(row=0, column=0)
+        CheckIn.selection_clear()
+        CheckOut.selection_clear()
         
             
     Button1 = Button(frame4, text='Search',command=check,font=("arial", 14)).grid(row=1,column=6)
@@ -199,7 +200,7 @@ def report():
     Label(frame4, text="Check In Date", font=("arial", 20), height=2, width= 18).grid(row=1, column=2)
     Label(frame4, text="Check out Date", font=("arial", 20), height=2, width= 18).grid(row=1, column=3)
     Label(frame4, text="Amount", font=("arial", 20), height=2,width= 18).grid(row=1, column=4)
-    print(todays_report)
+    #print(todays_report)
     if todays_report:
         for i in range(len(todays_report)):
             Label(frame4, text=todays_report[i][0],font = ("arial", 15),height= 2, width= 24, borderwidth=1, relief="groove").grid(row=i+2, column=0)
