@@ -365,7 +365,8 @@ def edit(Guest_Id):
   
 
 def GuestProfile(Guest_Id = None):
-    #print(Guest_Id)
+    if Guest_Id is None:
+        return
     result = get_guest(Guest_Id)
     #print(result)
     clear(frame2)
