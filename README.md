@@ -4,7 +4,7 @@ Group Members:
 
 Dhruvkumar D Patel: Created Database(schema) and capabilities 7 & 8,
 Cheng No Chang: capabilities 5 & 6,
-Francisco Montalvo: capabilities 5 & 6,
+Francisco Montalvo: capabilities 1 & 2,
 Frederick, Alexander : capabilities 3 & 4
 
 
